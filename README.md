@@ -37,15 +37,20 @@ If you prefer you can easily build the docker image by yourself. After this the 
 ### Start the container
 The container has all pre requisites set up to run phpPgAdmin. Specify all needed environment variables.
 
-	$ sudo docker run -i -d -p 80 -e APACHE_SERVERNAME=jacksoncage.se -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 jacksoncage/phppgadmin
+	$ sudo docker run --name=phppgadmin -d -p 80:80 -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 jacksoncage/phppgadmin
 
 Trying the browser on url http://localhost/phppgadmin.
 
 
+### Connect the container to a postgres container
+You can simply connect a container instanciated from an official postgres image (from https://hub.docker.com/_/postgres/) this way:
+
+	$ sudo docker run --name=phppgadmin -d -p 80:80 --link postgres jacksoncage/phppgadmin
+
 #### Start the container and keep control
 The command above starts the container in deamon mode (-d) and runs in the background. If you want to start it by yourself just to see what happens use this command:
 
-	$ sudo docker run -i -t -p 80 -e APACHE_SERVERNAME=jacksoncage.se -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 jacksoncage/phppgadmin bash
+	$ sudo docker run -i -t -p 80:80 --link postgres jacksoncage/phppgadmin bash
 
 Notice the two changes made here, first we replaced the deamon switch (-d) with the tty switch (-t) which pipes the std in and std out to your terminal.
 
@@ -63,5 +68,5 @@ Now go to `<your container's ip>:<container's port>` in your browser
 ### Stop the container
 Stopping a running container is possible via the docker api. If only one instance of this container is running this command will stop it:
 
-	$ sudo docker stop `sudo docker ps |grep jacksoncage/phppgadmin |cut -d\  -f1`
+	$ sudo docker stop phppgadmin
 
