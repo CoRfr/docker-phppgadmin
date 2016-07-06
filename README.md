@@ -24,20 +24,20 @@ Apache and Postgres will make of the following environment variables.
 ### Use the pre built image
 The pre built image can be downloaded using docker directly. After that you do not need to use this command again, you will have the image on your machine.
 
-	$ sudo docker pull jacksoncage/phppgadmin
+	$ sudo docker pull corfr/phppgadmin
 
 
 ### Build the docker image by yourself
 If you prefer you can easily build the docker image by yourself. After this the image is ready for use on your machine and can be used for multiple starts.
 
 	$ cd phppgadmin-docker
-	$ sudo docker build -t jacksoncage/phppgadmin .
+	$ sudo docker build -t corfr/phppgadmin .
 
 
 ### Start the container
 The container has all pre requisites set up to run phpPgAdmin. Specify all needed environment variables.
 
-	$ sudo docker run --name=phppgadmin -d -p 80:80 -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 jacksoncage/phppgadmin
+	$ sudo docker run --name=phppgadmin -d -p 80:80 -e POSTGRES_HOST=localhost -e POSTGRES_PORT=5432 corfr/phppgadmin
 
 Trying the browser on url http://localhost/phppgadmin.
 
@@ -45,12 +45,12 @@ Trying the browser on url http://localhost/phppgadmin.
 ### Connect the container to a postgres container
 You can simply connect a container instanciated from an official postgres image (from https://hub.docker.com/_/postgres/) this way:
 
-	$ sudo docker run --name=phppgadmin -d -p 80:80 --link postgres jacksoncage/phppgadmin
+	$ sudo docker run --name=phppgadmin -d -p 80:80 --link postgres corfr/phppgadmin
 
 #### Start the container and keep control
 The command above starts the container in deamon mode (-d) and runs in the background. If you want to start it by yourself just to see what happens use this command:
 
-	$ sudo docker run -i -t -p 80:80 --link postgres jacksoncage/phppgadmin bash
+	$ sudo docker run -i -t -p 80:80 --link postgres corfr/phppgadmin bash
 
 Notice the two changes made here, first we replaced the deamon switch (-d) with the tty switch (-t) which pipes the std in and std out to your terminal.
 
